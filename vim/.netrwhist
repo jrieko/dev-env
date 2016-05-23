@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/jray/dev/chef/foo'
+let g:netrw_dirhist_2='/home/jray/.chef/code_generator/recipes'
+let g:netrw_dirhist_3='/home/jray/.vim/bundle/syntastic/plugin/syntastic'
+let g:netrw_dirhist_4='/home/jray/dev/chef/symantec_endpoint_protection_client/attributes'
+let g:netrw_dirhist_5='/home/jray/dev/chef/symantec_endpoint_protection_client/.kitchen'
+let g:netrw_dirhist_6='/home/jray/.chef/foodcritic/rules'
+let g:netrw_dirhist_7='/home/jray/.berkshelf/cookbooks/ocx-70e1537fbafdd592b7d6616b66aeae28c68582d5'

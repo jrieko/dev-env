@@ -1,0 +1,3 @@
+strictHostKeyChecking no
+GSSAPIAuthentication no
+

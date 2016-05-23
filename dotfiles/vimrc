@@ -1,0 +1,36 @@
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+set tabstop =2 shiftwidth=2 expandtab
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+" Syntastic Chef Stuff
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_id_checkers = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_jump = 1
+let g:syntastic_chef_checkers = ['foodcritic', 'raycritic']
+let g:syntastic_chef_raycritic_args = "-I ~/.chef/foodcritic"
+let g:syntastic_ruby_checkers = ['rubocop']
+
+" Airline Config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'base16_default'
+
+" promptline.vim
+let g:promptline_preset = {
+  \'a' : [ promptline#slices#host() ],
+  \'b' : [ promptline#slices#user() ],
+  \'c' : [ promptline#slices#cwd() ],
+  \'y' : [ promptline#slices#vcs_branch() ],
+  \'warn' : [ promptline#slices#last_exit_code() ]}
