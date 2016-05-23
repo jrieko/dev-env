@@ -21,6 +21,9 @@ main() {
 
   # Copy vim plugins
   tar xf plugins.tar ~/.vim/bundle/
+  
+  # Copy chef stuff
+  tar xf chef.tar ~/.chef
 
   # Install fonts
   [[ -d ~/.local/share ]] || mkdir -p ~/.local/share
