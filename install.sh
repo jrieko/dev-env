@@ -19,6 +19,9 @@ main() {
     rsync -a ${dir}/ ~/.${dir}
   done
 
+  # Copy vim plugins
+  tar xf plugins.tar ~/.vim/bundle/
+
   # Install fonts
   [[ -d ~/.local/share ]] || mkdir -p ~/.local/share
   rsync -a fonts ~/.local/share/
