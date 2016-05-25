@@ -28,6 +28,7 @@ main() {
   # Install fonts
   [[ -d ~/.local/share ]] || mkdir -p ~/.local/share
   rsync -a fonts ~/.local/share/
+  ln -s  ~/.fonts ~/local/share/fonts/
   fc-cache -fv
 }
 
