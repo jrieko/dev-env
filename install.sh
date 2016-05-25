@@ -30,7 +30,13 @@ main() {
   rsync -a fonts ~/.local/share/
   ln -s  ~/.local/share/fonts/ ~/.fonts
   fc-cache -fv
-}
 
+  # Update Git
+  for dir in foodcritic code_generator bootstrap; do
+    cd ~/.chef/${dir}
+    git pull
+  done
+
+}
 ## Source Check
 [[ "${BASH_SOURCE}" == "$0" ]] && main "$@"
