@@ -28,7 +28,7 @@ main() {
   # Install fonts
   [[ -d ~/.local/share ]] || mkdir -p ~/.local/share
   rsync -a fonts ~/.local/share/
-  ln -s  ~/.local/share/fonts/ ~/.fonts
+  [[ -h ~/.fonts ]] || -ln -s  ~/.local/share/fonts/ ~/.fonts
   fc-cache -fv
 
   # Update Git
