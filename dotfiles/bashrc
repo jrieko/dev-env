@@ -91,10 +91,16 @@ fi
 ssh-add ~/.ssh/Keys/*.priv > /dev/null 2>&1
 
 # Set no proxy
-export no_proxy='localhost,127.0.0.1,chef-server,gitlab-server,10.1.1.101'
+export no_proxy='localhost,127.0.0.1,chef-server,gitlab-server,jenkins,10.1.1.101,gar-ifnxyum'
 
 # ChefDk
 eval "$(chef shell-init bash)"
+
+# Dot Aliases
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
 ## Functions
 extract() { 
