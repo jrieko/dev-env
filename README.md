@@ -65,3 +65,6 @@ Run install.sh
 Source your bashrc.
 
 `source ~/.bashrc`
+
+**Author:** John R. Ray <john@johnray.io>
+**Version** 0.5.0
