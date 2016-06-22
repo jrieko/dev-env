@@ -8,6 +8,6 @@ client_key               "#{current_dir}/USERNAME_chef.pem"
 validation_client_name   'gps-ocx-ifdc-validator'
 validation_key           "#{current_dir}/gps-ocx-ifdc-validator.pem"
 chef_server_url          'https://chef-server/organizations/gps-ocx-ifdc'
-cookbook_path            ["#{current_dir}/../dev/chef/"]
+cookbook_path            ["#{current_dir}/../dev/chef/cookbooks"]
 ssl_verify_mode          :verify_none
 chefdk.generator_cookbook "#{current_dir}/code_generator"

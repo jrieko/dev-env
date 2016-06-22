@@ -37,6 +37,9 @@ main() {
     git pull
   done
 
+  # Create dev directory structure if it doesn't already exist
+  [[ -d ~/dev/chef/cookbooks ]] || mkdir -p ~/dev/chef/cookbooks
+
 }
 ## Source Check
 [[ "${BASH_SOURCE}" == "$0" ]] && main "$@"
