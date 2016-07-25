@@ -13,11 +13,22 @@ main() {
   for file in $(ls dotfiles); do
     cp dotfiles/${file} ~/.${file}
   done
+  
+  bash_aliases="$(cat ~/.bash_aliases)"
+  echo "Enter your email address:"
+  read -p "Enter your email address: " email
+  echo "export EMAIL=$email" > ~/.bash_aliases
+  echo "$bash_aliases" >> ~/.bash_aliases
+
+  name="$(getent passwd $USER | cut -d ':' -f 5)"
+  echo "  name = $name" >> ~/.gitconfig
+  echo "  email = $EMAIL" >> ~/.gitconfig
 
   # Copy directories
   for dir in ssh berkshelf vim chef; do
     rsync -a ${dir}/ ~/.${dir}
   done
+  rsync -a bin/ ~/bin
 
   # Copy vim plugins
   tar xf plugins.tar -C ~/.vim/bundle/

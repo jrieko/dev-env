@@ -1,3 +1,10 @@
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore_global
 [http]
 	sslVerify = false
+[merge]
+	tool = gvimdiff
+[diff]
+	tool = gvimdiff
 [user]
