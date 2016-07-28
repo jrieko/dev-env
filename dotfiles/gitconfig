@@ -3,8 +3,14 @@
   excludesfile = ~/.gitignore_global
 [http]
 	sslVerify = false
+[mergetool]
+	keepBackup = false
+[mergetool "fugitive"]
+#     base/ancestor
+# local | merged | remote
+cmd = vim -f -c \"Gsdiff :1 | Gvdiff\" \"$MERGED\"
 [merge]
-	tool = gvimdiff
+	tool = fugitive
 [diff]
 	tool = gvimdiff
 [user]
