@@ -39,7 +39,7 @@ A modified prompt that provides useful informaiton in a stylized way.
 ## Chef
 This directory goes in your home directory and contains the validator.pem for the chef org we are using. It also has a stock knife.rb and contains directories for foodcritic, bootstrap, and the code_generator.
 
-It is vital toi switch to master and git pull on these before doing anything else.
+It is vital to switch to master and git pull on these before doing anything else. This is done once by `install.sh`.
 
 ## Berkshelf
 Sane config for berkshelf. Namely disabling https verification.
@@ -56,15 +56,21 @@ Powerline fonts that give you access to the gliphs used in promptline.
 # Usage
 Clone this repository.
 
-`git clone git@gitlab-server:gps-ocx-support/dev-env.git`
+```sh
+$ git clone git@gitlab-server:gps-ocx-support/dev-env.git
+```
 
 Run install.sh
 
-`cd dev-env && ./install.sh`
+```sh
+$ cd dev-env && ./install.sh
+```
 
 Source your bashrc.
 
-`source ~/.bashrc`
+```sh
+$ source ~/.bashrc
+```
 
 **Author:** John R. Ray <john@johnray.io>
-**Version** 0.5.0
+**Version** 0.6.0

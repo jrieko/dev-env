@@ -4,6 +4,10 @@ filetype plugin indent on
 set tabstop=2 shiftwidth=2 expandtab
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+set ignorecase
+set smartcase
+set splitbelow
+set splitright
 
 " Syntastic Chef Stuff
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -14,12 +18,18 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_id_checkers = 0
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_jump = 1
-let g:syntastic_chef_checkers = ['foodcritic', 'raycritic']
-let g:syntastic_chef_raycritic_args = "-I ~/.chef/foodcritic"
+let g:syntastic_chef_checkers = ['foodcritic']
+let g:syntastic_chef_foodcritic_args = "-I ~/.chef/foodcritic"
 let g:syntastic_ruby_checkers = ['rubocop']
+autocmd BufNewFile,BufRead */\(attributes\|definitions\|libraries\|providers\|recipes\|resources\)/*.rb set filetype=ruby.chef
+autocmd BufNewFile,BufRead */templates/*/*.erb set filetype=eruby.chef
+autocmd BufNewFile,BufRead */metadata.rb set filetype=ruby.chef
+autocmd BufNewFile,BufReadPost *.md,*.markdown set filetype=markdown
+autocmd BufNewFile,BufReadPost *.md,*.markdown let g:airline#extensions#whitespace#checks = [ 'indent', 'mixed-indent-file' ]
+autocmd BufNewFile,BufReadPost *.json set filetype=json
 
 " Airline Config
 let g:airline#extensions#tabline#enabled = 1

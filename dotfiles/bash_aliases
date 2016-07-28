@@ -2,5 +2,7 @@ alias proxyon='export http_proxy=http://proxy.usfornax.ifornax.ray.com:80 && exp
 alias proxyoff='export http_proxy= && export https_proxy= && export HTTPS_PROXY= && export HTTP_PROXY='
 alias vimbash='vim ~/.bashrc'
 alias chefdev='cd ~/dev/chef'
-alias cgc='chef generate cookbook -C Raytheon -m user@raytheon.com -I raytheon'
-alias cgr='chef generate recipe -C Raytheon -m user@raytheon.com'
+alias cgc="chef generate cookbook -C Raytheon -m $EMAIL -I raytheon"
+alias cgr="chef generate recipe -C Raytheon -m $EMAIL"
+alias cgl="chef generate lwrp -C Raytheon -m $EMAIL"
+alias cgf="chef generate file -C Raytheon -m $EMAIL"
