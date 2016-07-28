@@ -54,9 +54,16 @@ main() {
   # Create dev directory structure if it doesn't already exist
   [[ -d ${target_dir}/dev/chef/cookbooks ]] || mkdir -p ${target_dir}/dev/chef/cookbooks
   
+  source ${target_dir}/.bash_aliases
+  proxyon
+
   # mount EIM share
-  if [[ -z "$(mount | grep '//fs-gps-ocx-eim.usfornax.ifornax.ray.com/c$/GPS_OCX_EIM_export')" ]]; then
+  if [[ -z "$(mount | grep '/share')" ]]; then
     [[ -d /share ]] || sudo mkdir /share
+    if [[ -n "$(ls -A /share)" ]]; then
+      echo "/share exists and is non-empty. Can't mount there. Aborting"
+      exit 1
+    fi
     if [[ ! -e ${target_dir}/.credentials-usfornax ]]; then
       read -s -p "Enter your usfornax password: " pass
       echo "username=usfornax/${USER}" > ${target_dir}/.credentials-usfornax
@@ -68,7 +75,16 @@ main() {
   fi
 
   # install ChefDK
-  sudo yum localinstall /share/chefdk-0.13.21-1.el6.x86_64.rpm
+  if [[ "$(lsb_release -rs)" =~ 6\.[0-9.]+ ]]; then
+    sudo yum localinstall -y /share/chefdk-0.13.21-1.el6.x86_64.rpm
+    sudo yum localinstall -y /share/libicu-4.2.1-14.el6.x86_64.rpm
+    sudo yum localinstall -y /share/libicu-devel-4.2.1-14.el6.x86_64.rpm
+    gem install -s http://rubygems.org --no-rdoc --no-ri gollum
+  elif [[ "$(lsb_release -rs)" =~ 7\.[0-9.]+ ]]; then
+    sudo yum localinstall /share/chefdk-0.13.21-1.el7.x86_64.rpm
+  else
+    echo 'Unknown OS. Not installing ChefDK.'
+  fi
 }
 ## Source Check
 [[ "${BASH_SOURCE}" == "$0" ]] && main "$@"

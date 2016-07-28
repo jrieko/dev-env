@@ -91,7 +91,7 @@ fi
 ssh-add ~/.ssh/Keys/*.priv > /dev/null 2>&1
 
 # Set no proxy
-export no_proxy='localhost,127.0.0.1,chef-server,gitlab-server,jenkins,10.1.1.101,gar-ifnxyum'
+export no_proxy='localhost,127.0.0.1,.ray.com,10.0.0.0/8,192.168.0.0/16,chef-server,gitlab-server,jenkins-server,jenkins,gar-ifnxyum'
 
 # ChefDk
 eval "$(chef shell-init bash)"
