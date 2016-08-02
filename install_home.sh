@@ -43,7 +43,41 @@ install_home() {
   fi
   rsync ${verbose} -a --ignore-existing bin/ ${target_dir}/bin
 
+  # credentials for nas mounts
+  if [[ ! -e ${target_dir}/.credentials-usfornax ]]; then
+    read -s -p "Enter your usfornax (IFDC) password: " pass
+    echo "username=usfornax/${USER}" > ${target_dir}/.credentials-usfornax
+    echo "password=${pass}" >> ${target_dir}/.credentials-usfornax
+  else
+    verbose "${target_dir}/.credentials-usfornax already exists."
+  fi
+  chmod 600 ${target_dir}/.credentials-usfornax
+  source ${target_dir}/.credentials-usfornax
+
+  # ssh key
   [[ -e ${target_dir}/.ssh/id_rsa ]] || ssh-keygen -b 2048 -t rsa -f ${target_dir}/.ssh/id_rsa -q -N ""
+
+  # add ssh key to gitlab
+  gitlab_session="$(curl --silent ${verbose} http://gitlab-server/api/v3/session --data 'login='${USER}'&password='${password})"
+  if [[ $gitlab_session =~ ^.*401' 'Unauthorized.*$ ]]; then
+    echo "ERROR: Gitlab login failed. Email GPS_OCX_IFDC_HELP for support. [request='POST http://gitlab-server/api/v3/session?login=${USER}&password=(redacted)', response='${gitlab_session}']"
+    exit 3
+  elif [[ ! $gitlab_session =~ ^.*'"'private_token'"':'"'([^'"']+)'"'.*$ ]]; then
+    echo "ERROR: no private token for user."
+    exit 4
+  fi
+  
+  gitlab_private_token="${BASH_REMATCH[1]}"
+  verbose "gitlab_private_token='${gitlab_private_token}'"
+
+  ssh_pubkey=( $(cat ${target_dir}/.ssh/id_rsa.pub) )
+
+  if [[ -z "$(curl --silent ${verbose} -G 'http://gitlab-server/api/v3/user/keys?private_token='${gitlab_private_token} | grep ${ssh_pubkey[1]})" ]]; then
+    curl ${verbose} -X POST -F "private_token=${gitlab_private_token}" -F "title=${ssh_pubkey[2]}" -F "key=${ssh_pubkey[*]}" "http://gitlab-server/api/v3/user/keys"
+  else
+    verbose "SSH key already added to GitLab."
+  fi
+
 
   if [[ ! -e ${done_file} ]]; then
     # Copy vim plugins
@@ -70,14 +104,6 @@ install_home() {
   # Create dev directory structure if it doesn't already exist
   [[ -d ${dev_chef_dir}/cookbooks ]] || mkdir ${verbose} -p ${dev_chef_dir}/cookbooks
 
-  if [[ ! -e ${target_dir}/.credentials-usfornax ]]; then
-    read -s -p "Enter your usfornax (IFDC) password: " pass
-    echo "username=usfornax/${USER}" > ${target_dir}/.credentials-usfornax
-    echo "password=${pass}" >> ${target_dir}/.credentials-usfornax
-  else
-    verbose "${target_dir}/.credentials-usfornax already exists."
-  fi
-  chmod 600 ${target_dir}/.credentials-usfornax
 
   touch $done_file
 }
