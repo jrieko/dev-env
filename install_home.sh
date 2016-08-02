@@ -31,7 +31,7 @@ install_home() {
   source ${target_dir}/.bash_aliases
 
   [[ -n "$(git config -f ${target_dir}/.gitconfig user.name)" ]] || git config -f ${target_dir}/.gitconfig user.name "$USER_FULL_NAME"
-  [[ -n "$(git config -f ${target_dir}/.gitconfig user.email)" ]] || git config -f ${target_dir}/.gitconfig user.name "$EMAIL"
+  [[ -n "$(git config -f ${target_dir}/.gitconfig user.email)" ]] || git config -f ${target_dir}/.gitconfig user.email "$EMAIL"
 
   if [[ ! -e ${done_file} ]]; then
     # Copy directories

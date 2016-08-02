@@ -13,4 +13,3 @@ cmd = vim -f -c \"Gsdiff :1 | Gvdiff\" \"$MERGED\"
 	tool = fugitive
 [diff]
 	tool = gvimdiff
-[user]
